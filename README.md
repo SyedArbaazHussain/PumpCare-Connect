@@ -1,6 +1,6 @@
 # PumpCare Connect
 
-React + Vite
+React + Vite with ExpressJs
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
