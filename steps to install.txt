@@ -1,0 +1,1 @@
+npm install -g axios react-router-dom  nodemon dotenv env bcrypt cors mysql2 mysql express express-session jsonwebtoken concurrently
