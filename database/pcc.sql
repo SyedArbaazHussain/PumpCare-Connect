@@ -23,7 +23,7 @@ CREATE TABLE `panchayat` (
   UNIQUE KEY `Contact_No_UNIQUE` (`Contact_No`),
   UNIQUE KEY `P_email_UNIQUE` (`P_email`),
   UNIQUE KEY `P_password_UNIQUE` (`P_password`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `operator` (
   `Pump_Operator_ID` int NOT NULL AUTO_INCREMENT,
@@ -38,7 +38,7 @@ CREATE TABLE `operator` (
   UNIQUE KEY `Contact_No_UNIQUE` (`Contact_No`),
   UNIQUE KEY `PO_email_UNIQUE` (`PO_email`),
   UNIQUE KEY `PO_password_UNIQUE` (`PO_password`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `sector` (
   `Sector_ID` int NOT NULL AUTO_INCREMENT,
   `Sector_Name` varchar(45) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `sector` (
   KEY `Pump_Operator_ID_idx` (`Pump_Operator_ID`),
   CONSTRAINT `Panchayat_ID` FOREIGN KEY (`Panchayat_ID`) REFERENCES `panchayat` (`Panchayat_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Pump_Operator_ID` FOREIGN KEY (`Pump_Operator_ID`) REFERENCES `operator` (`Pump_Operator_ID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `pumps` (
   `Pump_ID` int NOT NULL AUTO_INCREMENT,
   `Pump_Model` varchar(45) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE `villager` (
   UNIQUE KEY `Contact_No_UNIQUE` (`Contact_No`),
   KEY `Pump_Operator_ID_idx` (`V_Pump_Operator_ID`),
   CONSTRAINT `V_Pump_Operator_ID` FOREIGN KEY (`V_Pump_Operator_ID`) REFERENCES `operator` (`Pump_Operator_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `feedback` (
   `Feedback_ID` int NOT NULL AUTO_INCREMENT,
   `F_House_No` int NOT NULL,
@@ -98,4 +98,4 @@ CREATE TABLE `feedback` (
   KEY `F_Pump_Operator_ID_idx` (`F_Pump_Operator_ID`),
   CONSTRAINT `F_House_No` FOREIGN KEY (`F_House_No`) REFERENCES `villager` (`House_No`) ON UPDATE CASCADE,
   CONSTRAINT `F_Pump_Operator_ID` FOREIGN KEY (`F_Pump_Operator_ID`) REFERENCES `operator` (`Pump_Operator_ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

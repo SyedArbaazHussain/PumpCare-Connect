@@ -562,7 +562,7 @@ th {
     min-width: auto;
     max-height: auto;
     max-width: auto;
-    background: url("background2_2.jpg") no-repeat;
+    background: url("./assets/background.jpg") no-repeat;
     background-size: cover;
     background-position: center;
     color: white;
@@ -713,7 +713,7 @@ th {
     min-width: 100%;
     max-height: auto;
     max-width: auto;
-    background: url("background2_2.jpg") no-repeat;
+    background: url("./assets/background.jpg") no-repeat;
     background-size: cover;
     background-position: center;
     color: white;
