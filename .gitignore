@@ -31,3 +31,5 @@ server\.env.vault
 .flaskenv*
 !.env.project
 !.env.vault
+
+.gitignore
