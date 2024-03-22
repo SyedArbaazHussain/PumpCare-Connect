@@ -15,7 +15,7 @@ CREATE TABLE `panchayat` (
   `PDO_Name` varchar(60) NOT NULL,
   `P_email` varchar(100) NOT NULL,
   `P_password` varchar(255) NOT NULL,
-  `Contact_No` int NOT NULL,
+  `Contact_No` varchar(10) NOT NULL,
   PRIMARY KEY (`Panchayat_ID`),
   UNIQUE KEY `Panchayat_ID_UNIQUE` (`Panchayat_ID`),
   UNIQUE KEY `Panchayat_Name_UNIQUE` (`Panchayat_Name`),
@@ -28,7 +28,7 @@ CREATE TABLE `panchayat` (
 CREATE TABLE `operator` (
   `Pump_Operator_ID` int NOT NULL AUTO_INCREMENT,
   `Pump_Operator_Name` varchar(50) NOT NULL,
-  `Contact_No` int NOT NULL,
+  `Contact_No` varchar(10) NOT NULL,
   `PO_email` varchar(45) NOT NULL,
   `PO_password` varchar(255) NOT NULL,
   `No_Of_Lines` int DEFAULT NULL,

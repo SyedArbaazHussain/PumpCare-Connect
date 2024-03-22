@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import AdminNavbar from "../Navbars/AdminNavbar";
+import AdminHomeNavbar from "../Navbars/AdminHomeNavbar";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const AdminLogin = () => {
   return (
     <>
       <div>
-        <AdminNavbar />
+        <AdminHomeNavbar />
       </div>
       <div className="wr">
         <div className="form-box login">
@@ -83,7 +83,7 @@ const AdminLogin = () => {
             <div className="login-register">
               <p>
                 Don&apos;t have an account?{" "}
-                <Link to="/signup" className="register">
+                <Link to="/admin-signup" className="register">
                   Register
                 </Link>
               </p>

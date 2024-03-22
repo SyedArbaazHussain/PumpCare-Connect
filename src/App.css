@@ -377,7 +377,7 @@ form {
   background: transparent;
   border: none;
   outline: none;
-  color: #162938;
+  color: #d4d4d4;
   font-weight: 600;
   padding: 0px 35px 0 10px;
 }
@@ -386,7 +386,7 @@ form {
   position: absolute;
   right: 18px;
   font-size: 1.2em;
-  color: #162938;
+  color: #d4d4d4;
   line-height: 57px;
   filter: invert(1);
 }

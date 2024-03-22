@@ -1,6 +1,9 @@
+/** @format */
+
+import React from "react";
 import { Link } from "react-router-dom";
 
-const HomeNavbar = () => {
+function AdminHomeNavbar() {
   return (
     <header>
       <h2 className="logo">PumpCare Connect</h2>
@@ -9,22 +12,16 @@ const HomeNavbar = () => {
           <Link className="btnLogin-popup" to="/">
             Home
           </Link>
-          <Link className="btnLogin-popup" to="/LoginSelect">
-            Login
-          </Link>
-          <Link className="btnLogin-popup" to="/SignupSelect">
-            Sign Up
-          </Link>
-          <Link className="btnLogin-popup" to="/complaints">
-            Complaints
-          </Link>
           <Link className="btnLogin-popup" to="/admin-login">
-            Admin
+            Admin Login
+          </Link>
+          <Link className="btnLogin-popup" to="/admin-signup">
+            Admin Signup
           </Link>
         </nav>
       </div>
     </header>
   );
-};
+}
 
-export default HomeNavbar;
+export default AdminHomeNavbar;

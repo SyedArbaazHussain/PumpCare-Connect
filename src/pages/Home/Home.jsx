@@ -42,7 +42,7 @@ const Home = () => {
             </button>
             <button
               className="btnhome"
-              onClick={() => (window.location.href = "/complaint")}
+              onClick={() => (window.location.href = "/complaints")}
             >
               Complaints
             </button>
