@@ -84,7 +84,7 @@ const AdminLogin = () => {
               <p>
                 Don&apos;t have an account?{" "}
                 <Link to="/admin-signup" className="register">
-                  Register
+                  Request Access
                 </Link>
               </p>
             </div>

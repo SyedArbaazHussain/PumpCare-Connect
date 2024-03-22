@@ -20,57 +20,54 @@ import Admin from "./pages/Admin/Admin";
 import { AuthProvider } from "./components/Auth/AuthContext"; // Import the AuthProvider
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminSignup from "./components/Admin/AdminSignup";
+import AdminAuth from "./components/Admin/AdminAuth";
 import AdminNavbar from "./components/Navbars/AdminNavbar";
 import HomeNavbar from "./components/Navbars/HomeNavbar";
-import PanchayatNavbar from "./components/Navbars/PanchayatNavbar";       
-import OperatorNavbar from "./components/Navbars/OperatorNavbar";       
-import VillagerNavbar from "./components/Navbars/VillagerNavbar";       
+import PanchayatNavbar from "./components/Navbars/PanchayatNavbar";
+import OperatorNavbar from "./components/Navbars/OperatorNavbar";
+import VillagerNavbar from "./components/Navbars/VillagerNavbar";
 import "./App.css";
 
 const App = () => {
   return (
     <>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/notfound" element={<NotFound />} />
-            <Route path="/LoginSelect" element={<LoginSelect />} />
-            <Route path="/SignupSelect" element={<SignupSelect />} />
-            <Route path="/complaints" element={<Complaints />} />
-            <Route path="/panchayat-signup" element={<PanchayatSignupForm />} />
-            <Route
-              path="/pump-operator-signup"
-              element={<PumpOperatorSignupForm />}
-            />
-            <Route path="/villager-signup" element={<VillagerSignupForm />} />
-            <Route path="/panchayat-login" element={<PanchayatLoginForm />} />
-            <Route
-              path="/pump-operator-login"
-              element={<PumpOperatorLoginForm />}
-            />
-            <Route path="/villager-login" element={<VillagerLoginForm />} />
-            <Route
-              path="/panchayatdashboard"
-              element={<PanchayatDashboard />}
-            />
-            <Route
-              path="/panchayatsector"
-              element={<PanchayatSectorDetails />}
-            />
-            <Route
-              path="/panchayatoperator"
-              element={<PanchayatPumpOperatorDetails />}
-            />
-            <Route path="/panchayatvillager" element={<Panchayatvillager />} />
-            <Route
-              path="/panchayatcomplaints"
-              element={<PanchayatComplaints />}
-            />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/admin-signup" element={<AdminSignup />} />
-          </Routes>
-        </Router>     
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/notfound" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
+          <Route path="/LoginSelect" element={<LoginSelect />} />
+          <Route path="/SignupSelect" element={<SignupSelect />} />
+          <Route path="/complaints" element={<Complaints />} />
+          <Route path="/panchayat-signup" element={<PanchayatSignupForm />} />
+          <Route
+            path="/pump-operator-signup"
+            element={<PumpOperatorSignupForm />}
+          />
+          <Route path="/villager-signup" element={<VillagerSignupForm />} />
+          <Route path="/panchayat-login" element={<PanchayatLoginForm />} />
+          <Route
+            path="/pump-operator-login"
+            element={<PumpOperatorLoginForm />}
+          />
+          <Route path="/villager-login" element={<VillagerLoginForm />} />
+          <Route path="/panchayatdashboard" element={<PanchayatDashboard />} />
+          <Route path="/panchayatsector" element={<PanchayatSectorDetails />} />
+          <Route
+            path="/panchayatoperator"
+            element={<PanchayatPumpOperatorDetails />}
+          />
+          <Route path="/panchayatvillager" element={<Panchayatvillager />} />
+          <Route
+            path="/panchayatcomplaints"
+            element={<PanchayatComplaints />}
+          />
+          <Route path="/admin-dashboard" element={<Admin />} />
+          <Route path="/admin-auth" element={<Admin />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-signup" element={<AdminSignup />} />
+        </Routes>
+      </Router>
     </>
   );
 };
