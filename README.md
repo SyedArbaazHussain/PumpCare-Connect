@@ -1,5 +1,5 @@
 # PumpCare Connect
-
+Pump Care connect is a web application that is used as a platform for communication between panhcayat ,pump operator and villagers. 
 React + Vite with ExpressJs
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
