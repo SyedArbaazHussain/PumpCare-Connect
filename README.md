@@ -27,7 +27,7 @@ PumpCare Connect aims to simplify the process of monitoring and controlling wate
 
 - **Frontend**: React.js, HTML, CSS
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB
+- **Database**: mysql
 - **IoT Integration**: MQTT protocol for sensor communication
 - **Cloud Hosting**: AWS
 - **Analytics**: Python (for predictive maintenance and data analytics)
@@ -48,7 +48,7 @@ To set up the PumpCare Connect platform on your local machine, follow these step
    ```
 
 3. **Configure environment variables**:
-   Set up your `.env` file with the necessary API keys and configuration values (e.g., MongoDB URI, MQTT broker credentials, AWS keys).
+   Set up your `.env` file with the necessary API keys and configuration values (e.g., MQTT broker credentials, AWS keys).
 
 4. **Run the application**:
    ```bash
