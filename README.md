@@ -3,6 +3,7 @@
 **PumpCare Connect** is a comprehensive platform designed for managing and monitoring water pumps in agricultural and industrial settings. It integrates IoT devices with cloud-based monitoring systems, enabling real-time data collection, predictive maintenance, and efficient management of pump systems.
 
 ## Table of Contents
+
 - [Overview](#overview)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
@@ -37,20 +38,29 @@ PumpCare Connect aims to simplify the process of monitoring and controlling wate
 To set up the PumpCare Connect platform on your local machine, follow these steps:
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/SyedArbaazHussain/PumpCare-Connect.git
    cd PumpCare-Connect
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
+   ```
+
+   OR
+
+   ```bash
+   npm install -g axios react-router-dom  nodemon dotenv env bcrypt cors mysql2 mysql express express-session jsonwebtoken concurrently sqlite3
    ```
 
 3. **Configure environment variables**:
    Set up your `.env` file with the necessary API keys and configuration values (e.g., MQTT broker credentials, AWS keys).
 
 4. **Run the application**:
+
    ```bash
    npm start
    ```
