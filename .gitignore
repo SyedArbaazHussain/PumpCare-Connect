@@ -32,4 +32,3 @@ dist-ssr
 !.env.project
 !.env.vault
 
-.gitignore
