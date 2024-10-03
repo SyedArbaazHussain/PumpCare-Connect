@@ -23,12 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
-server\.env
-server\.env.me
-server\.env.previous
-server\.env.vault
+server/.env
+server/.env.me
+server/.env.previous
+server/.env.vault
 .env*
 .flaskenv*
 !.env.project
 !.env.vault
-
