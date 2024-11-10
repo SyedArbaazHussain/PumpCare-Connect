@@ -66,7 +66,7 @@ const PanchayatSignupForm = () => {
           P_email: email,
           P_password: password,
         },
-        { withCredentials: true },
+        { withCredentials: true }
       );
 
       if (response.data.error) {
@@ -74,27 +74,27 @@ const PanchayatSignupForm = () => {
         switch (response.data.error) {
           case "Please provide all required fields":
             setError(
-              "Missing required fields. Please fill out the form completely.",
+              "Missing required fields. Please fill out the form completely."
             );
             break;
           case "Please enter a valid 10-digit contact number":
             setError(
-              "Invalid phone number. Please enter a valid 10-digit number.",
+              "Invalid phone number. Please enter a valid 10-digit number."
             );
             break;
           case "Please enter a valid email address":
             setError(
-              "Invalid email address. Please enter a valid email format.",
+              "Invalid email address. Please enter a valid email format."
             );
             break;
           case "Password must be at least 8 characters long":
             setError(
-              "Password is too short. Please enter at least 8 characters.",
+              "Password is too short. Please enter at least 8 characters."
             );
             break;
           default:
             setError(
-              "An error occurred during signup. Please try again later.",
+              "An error occurred during signup. Please try again later."
             );
         }
       } else {
@@ -108,7 +108,7 @@ const PanchayatSignupForm = () => {
         // that falls out of the range of 2xx
         console.error(
           "Server responded with status code:",
-          error.response.status,
+          error.response.status
         );
         console.error("Response data:", error.response.data);
       } else if (error.request) {

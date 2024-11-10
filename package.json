@@ -5,9 +5,9 @@
   "type": "module",
   "homepage": "https://Arbaazhussain829.github.io/PumpCare-Connect",
   "scripts": {
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "vite",
-    "start:backend": "nodemon server/server.cjs",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "vite",
+    "dev:backend": "nodemon server/sqlite-server.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "build": "vite build",
@@ -16,6 +16,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.3",
     "axios": "^1.7.4",
     "bcrypt": "^5.1.1",
     "concurrently": "^9.0.1",
@@ -28,9 +29,11 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.9.8",
     "nodemon": "^3.1.0",
+    "pg": "^8.13.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
+    "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "vitest": "^1.4.0"
   },
