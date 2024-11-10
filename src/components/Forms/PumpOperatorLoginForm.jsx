@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/api";
 import HomeNavbar from "../Navbars/HomeNavbar";
 
 const PumpOperatorLoginForm = () => {
@@ -22,7 +22,7 @@ const PumpOperatorLoginForm = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/loginpo", {
+      const response = await api.post("/loginpo", {
         email,
         password,
       });

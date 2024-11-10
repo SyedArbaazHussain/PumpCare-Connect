@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/api";
 import AdminHomeNavbar from "../Navbars/AdminHomeNavbar";
 
 function AdminSignup() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,8 +30,8 @@ function AdminSignup() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8081/signup",
+      const response = await api.post(
+        "/signup",
         {
           Admin_Name: name,
           Admin_email: email,

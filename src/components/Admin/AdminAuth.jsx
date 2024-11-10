@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/api";
 import AdminHomeNavbar from "../Navbars/AdminHomeNavbar";
 
 function AdminAuth() {
@@ -36,10 +36,8 @@ function AdminAuth() {
     }
 
     try {
-      const response = await axios.post(
-        isLogin
-          ? "http://localhost:8081/login"
-          : "http://localhost:8081/signup",
+      const response = await api.post(
+        isLogin ? "/login" : "/signup",
         {
           Admin_Name: name,
           Admin_email: email,

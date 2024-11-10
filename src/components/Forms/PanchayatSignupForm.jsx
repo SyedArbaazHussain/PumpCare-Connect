@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/api";
 import HomeNavbar from "../Navbars/HomeNavbar";
 
 const PanchayatSignupForm = () => {
@@ -56,8 +56,8 @@ const PanchayatSignupForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8081/signupp",
+      const response = await api.post(
+        "/signupp",
         {
           Panchayat_Name: name,
           Panchayat_Loc: location,

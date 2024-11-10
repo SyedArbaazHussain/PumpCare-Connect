@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/api";
 import HomeNavbar from "../Navbars/HomeNavbar";
 
 const VillagerSignupForm = () => {
@@ -53,8 +53,8 @@ const VillagerSignupForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8081/signupv",
+      const response = await api.post(
+        "/signupv",
         {
           House_No: hno,
           Villager_Name: name,
