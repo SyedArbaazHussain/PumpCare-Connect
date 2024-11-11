@@ -1,4 +1,5 @@
 import axios from "axios";
+import process from "process";
 
 // Set the base URL from the environment variable directly
 const api = axios.create({
