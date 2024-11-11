@@ -1,18 +1,18 @@
-import axios from 'axios';
-import { API_BASE_URL } from '../config/config';
+import axios from "axios";
 
+// Set the base URL from the environment variable directly
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api", // Fallback to localhost for development
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    "Content-Type": "application/json",
+  },
 });
 
-// Add request interceptor for JWT token
+// Add request interceptor to include the JWT token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -23,4 +23,4 @@ api.interceptors.request.use(
   }
 );
 
-export default api; 
+export default api;
