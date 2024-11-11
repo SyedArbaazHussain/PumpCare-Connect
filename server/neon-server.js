@@ -14,7 +14,7 @@ const app = express();
 // Middleware setup
 app.use(
   cors({
-    origin: "*",
+    origin: "https://pump-care-connect.vercel.app/",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })

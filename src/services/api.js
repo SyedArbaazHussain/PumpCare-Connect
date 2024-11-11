@@ -1,7 +1,7 @@
 import axios from "axios";
 // Set the base URL from the environment variable directly
 const api = axios.create({
-  baseURL: "https://pump-care-connect.vercel.app/", // Fallback to localhost for development
+  baseURL: "https://pump-care-connect.vercel.app/api/", // Fallback to localhost for development
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
