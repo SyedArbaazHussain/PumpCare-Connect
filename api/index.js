@@ -148,7 +148,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/signupp", async (req, res) => {
+app.post("/api/signupp", async (req, res) => {
   const {
     panchayat_name,
     panchayat_loc,
