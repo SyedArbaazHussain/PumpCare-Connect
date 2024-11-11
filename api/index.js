@@ -14,10 +14,9 @@ const app = express();
 // Middleware setup
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://pump-care-connect.vercel.app"
-        : "http://localhost:5173",
+    origin: process.env.NODE_ENV === "production"
+      ? "https://pump-care-connect.vercel.app"
+      : ["http://localhost:5173", "http://127.0.0.1:5173"],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -28,10 +27,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // Database connection setup using environment variables
-const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
-const sql = neon(
-  `postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?sslmode=require`
-);
+
+const sql = neon(process.env.DATABASE_URL);
 
 // Test database connection
 async function testDbConnection() {
@@ -44,20 +41,17 @@ async function testDbConnection() {
   }
 }
 
-testDbConnection();
+testDbConnection()
 
-// JWT Secret
-const JWT_SECRET = process.env.JWT_SECRET || "not_authorized";
-
-// Middleware to check if user is authenticated
 const isAuthenticated = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ error: "Unauthorized" });
   }
-  const token = authHeader.split(" ")[1];
+
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
@@ -65,6 +59,7 @@ const isAuthenticated = async (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized" });
   }
 };
+
 
 // Authentication Routes
 app.post("/login", async (req, res) => {
@@ -160,67 +155,91 @@ app.post("/signupp", async (req, res) => {
     p_password,
   } = req.body;
 
-  // Input validation
-  if (
-    !panchayat_name ||
-    !panchayat_loc ||
-    !pdo_name ||
-    !contact_no ||
-    !p_email ||
-    !p_password
-  ) {
-    return res
-      .status(400)
-      .json({ error: "Please provide all required fields" });
-  }
-
-  const phoneRegex = /^\d{10}$/;
-  if (!phoneRegex.test(contact_no)) {
-    return res
-      .status(400)
-      .json({ error: "Please enter a valid 10-digit contact number" });
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(p_email)) {
-    return res
-      .status(400)
-      .json({ error: "Please enter a valid email address" });
-  }
-
   try {
+    // Validate required fields
+    if (!panchayat_name || !panchayat_loc || !pdo_name || !contact_no || !p_email || !p_password) {
+      return res.status(400).json({ 
+        success: false,
+        error: "Please provide all required fields" 
+      });
+    }
+
+    // Validate phone number
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(contact_no)) {
+      return res.status(400).json({ 
+        success: false,
+        error: "Please enter a valid 10-digit contact number" 
+      });
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(p_email)) {
+      return res.status(400).json({ 
+        success: false,
+        error: "Please enter a valid email address" 
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(p_password, 10);
 
-    // Check if Panchayat name or email already exists
+    // Check for existing panchayat
     const existingPanchayat = await sql`
-      SELECT 1 FROM panchayat WHERE p_email = ${p_email} OR panchayat_name = ${panchayat_name}
+      SELECT 1 FROM panchayat 
+      WHERE p_email = ${p_email} 
+      OR panchayat_name = ${panchayat_name}
     `;
 
     if (existingPanchayat.length > 0) {
       return res.status(400).json({
-        error:
-          "Panchayat email or name already exists. Please choose a different one.",
+        success: false,
+        error: "Panchayat email or name already exists. Please choose a different one."
       });
     }
 
+    // Insert new panchayat
     await sql`
-      INSERT INTO panchayat (panchayat_name, panchayat_loc, pdo_name, contact_no, p_email, p_password) 
-      VALUES (${panchayat_name}, ${panchayat_loc}, ${pdo_name}, ${contact_no}, ${p_email}, ${hashedPassword})
+      INSERT INTO panchayat (
+        panchayat_name, 
+        panchayat_loc, 
+        pdo_name, 
+        contact_no, 
+        p_email, 
+        p_password
+      ) VALUES (
+        ${panchayat_name}, 
+        ${panchayat_loc}, 
+        ${pdo_name}, 
+        ${contact_no}, 
+        ${p_email}, 
+        ${hashedPassword}
+      )
     `;
 
-    res.json({ message: "Panchayat signed up successfully" });
+    return res.status(201).json({ 
+      success: true,
+      message: "Panchayat signed up successfully" 
+    });
+
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Signup error:", error);
+    
     if (error.code === "23505") {
-      res.status(400).json({
-        error:
-          "Panchayat name or email already exists. Please choose a different one.",
+      return res.status(400).json({
+        success: false,
+        error: "Panchayat name or email already exists. Please choose a different one."
       });
-    } else {
-      res.status(500).json({ error: "Internal server error" });
     }
+    
+    return res.status(500).json({ 
+      success: false,
+      error: "Internal server error",
+      details: process.env.NODE_ENV === "development" ? error.message : undefined
+    });
   }
 });
+
 // Pump Operator signup route
 app.post("/signuppo", async (req, res) => {
   const { pump_operator_name, contact_no, po_email, po_password } = req.body;
