@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 import PanchayatNavbar from "../../components/Navbars/PanchayatNavbar";
 
 const PanchayatPumpOperatorDetails = () => {
@@ -39,15 +39,11 @@ const PanchayatPumpOperatorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `http://localhost:8081/addOperator`,
-        operator,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await api.post(`/addOperator`, operator, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       setSuccessMessage("Operator added successfully");
     } catch (error) {
       console.error(error);
@@ -59,13 +55,13 @@ const PanchayatPumpOperatorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:8081/fetchOperator/${operator.Pump_Operator_ID}`,
+      const response = await api.get(
+        `/fetchOperator/${operator.Pump_Operator_ID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       if (response.data) {
         setOperator(response.data);
@@ -84,14 +80,14 @@ const PanchayatPumpOperatorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(
-        `http://localhost:8081/updateOperator/${operator.Pump_Operator_ID}`,
+      await api.put(
+        `/updateOperator/${operator.Pump_Operator_ID}`,
         operator,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       setSuccessMessage("Operator updated successfully");
       setUpdateFormVisible(false);
@@ -105,13 +101,13 @@ const PanchayatPumpOperatorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        `http://localhost:8081/deleteOperator/${operator.Pump_Operator_ID}`,
+      await api.delete(
+        `/deleteOperator/${operator.Pump_Operator_ID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       setSuccessMessage("Operator deleted successfully");
       setUpdateFormVisible(false);

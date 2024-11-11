@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 import PanchayatNavbar from "../../components/Navbars/PanchayatNavbar";
 
 const PanchayatSectorDetails = () => {
@@ -38,15 +38,11 @@ const PanchayatSectorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `http://localhost:8081/addSector`,
-        sector,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.post(`/addSector`, sector, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setSuccessMessage("Sector added successfully");
     } catch (error) {
       console.error(error);
@@ -58,14 +54,11 @@ const PanchayatSectorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:8081/fetchSector/${sector.Sector_ID}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await api.get(`/fetchSector/${sector.Sector_ID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.data) {
         setSector(response.data);
         setUpdateFormVisible(true);
@@ -83,8 +76,8 @@ const PanchayatSectorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(
-        `http://localhost:8081/updateSector/${sector.Sector_ID}`,
+      const response = await api.put(
+        `/updateSector/${sector.Sector_ID}`,
         sector,
         {
           headers: {
@@ -105,14 +98,11 @@ const PanchayatSectorDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        `http://localhost:8081/deleteSector/${sector.Sector_ID}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await api.delete(`/deleteSector/${sector.Sector_ID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(response.data); // Log response data
       setSuccessMessage("Sector deleted successfully");
       setUpdateFormVisible(false);

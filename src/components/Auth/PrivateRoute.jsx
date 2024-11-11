@@ -1,5 +1,6 @@
-import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import PDashboard from "../PDashboard";
+import PSector from "../PSector";
 
 const PrivateRoute = () => {
   const location = useLocation();

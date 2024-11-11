@@ -1,6 +1,5 @@
-
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import api from "../../services/api";
 import HomeNavbar from "../../components/Navbars/HomeNavbar";
 
 const Complaints = () => {
@@ -15,9 +14,7 @@ const Complaints = () => {
   const handleSearch = async (e) => {
     e.preventDefault(); // Prevent form submission from refreshing the page
     try {
-      const response = await axios.get(
-        `http://localhost:8081/fetchNoOfComplaints/${complaintId}`
-      );
+      const response = await api.get(`/fetchNoOfComplaints/${complaintId}`);
 
       setComplaintDetails(response.data);
     } catch (error) {
@@ -28,7 +25,7 @@ const Complaints = () => {
 
   return (
     <>
-      <HomeNavbar/>
+      <HomeNavbar />
       <div className="wr">
         <div className="wrapperpdetails">
           <div className="wrappercomplaints">

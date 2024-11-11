@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 import PanchayatNavbar from "../../components/Navbars/PanchayatNavbar";
 
 function PanchayatComplaints() {
@@ -10,11 +9,11 @@ function PanchayatComplaints() {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/complaint",{
+        const response = await api.get("/complaint", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },);
+        });
         if (response.data) {
           setComplaints(response.data);
         } else {
@@ -31,7 +30,7 @@ function PanchayatComplaints() {
 
   return (
     <>
-      <PanchayatNavbar/>
+      <PanchayatNavbar />
       <div className="wrcomplaints">
         <div className="wrappercomplaints">
           <h1 className="phomeh1">Complaints</h1>
@@ -46,23 +45,22 @@ function PanchayatComplaints() {
               </tr>
             </thead>
             <tbody>
- {complaints.length > 0 ? (
-    complaints.map((complaint, index) => (
-      <tr key={index} className="trclass">
-        <td>{complaint.Feedback_ID}</td>
-        <td>{complaint.F_House_No}</td>
-        <td>{complaint.Description}</td>
-        <td>{complaint.F_Pump_Operator_ID}</td>
-        <td>{complaint.Feedback_Status}</td>
-      </tr>
-    ))
- ) : (
-    <tr>
-      <td colSpan="5">{errorMessage}</td>
-    </tr>
- )}
-</tbody>
-
+              {complaints.length > 0 ? (
+                complaints.map((complaint, index) => (
+                  <tr key={index} className="trclass">
+                    <td>{complaint.Feedback_ID}</td>
+                    <td>{complaint.F_House_No}</td>
+                    <td>{complaint.Description}</td>
+                    <td>{complaint.F_Pump_Operator_ID}</td>
+                    <td>{complaint.Feedback_Status}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5">{errorMessage}</td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
       </div>

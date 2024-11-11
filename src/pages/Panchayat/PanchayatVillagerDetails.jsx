@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 import PanchayatNavbar from "../../components/Navbars/PanchayatNavbar";
 
 const PanchayatVillagerDetails = () => {
@@ -38,14 +38,14 @@ const PanchayatVillagerDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `http://localhost:8081/addvillager`, // Adjusted to match the correct route
+      await api.post(
+        `/addvillager`, // Adjusted to match the correct route
         villager,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       setSuccessMessage("Villager added successfully");
     } catch (error) {
@@ -58,14 +58,11 @@ const PanchayatVillagerDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:8081/fetchVillager/${villager.House_No}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await api.get(`/fetchVillager/${villager.House_No}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       if (response.data) {
         setVillager({
           ...villager,
@@ -86,15 +83,11 @@ const PanchayatVillagerDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(
-        `http://localhost:8081/updateVillager/${villager.House_No}`,
-        villager,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await api.put(`/updateVillager/${villager.House_No}`, villager, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       setSuccessMessage("Villager updated successfully");
       setUpdateFormVisible(false);
     } catch (error) {
@@ -107,14 +100,11 @@ const PanchayatVillagerDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        `http://localhost:8081/deleteVillager/${villager.House_No}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await api.delete(`/deleteVillager/${villager.House_No}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       setSuccessMessage("Villager deleted successfully");
       setUpdateFormVisible(false);
     } catch (error) {

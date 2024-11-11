@@ -1,13 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "./AuthContext"; // Import the AuthContext if you're using Context API
+import { useState, useEffect } from "react";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Function to log in
   const login = async (email, password) => {
     try {
+      setLoading(true);
+      setError(null);
+      
       const response = await fetch("/login", {
         method: "POST",
         headers: {
@@ -16,15 +19,18 @@ const useAuth = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
+      
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error(data.message || "Login failed");
       }
 
-      const data = await response.json();
-      setUser(data.user); // Assuming the response includes a user object
-      localStorage.setItem("token", data.token); // Store the token in localStorage
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
     } catch (error) {
-      console.error("Login error:", error);
+      setError(error.message);
+      setUser(null);
+      localStorage.removeItem("token");
     } finally {
       setLoading(false);
     }
@@ -43,13 +49,37 @@ const useAuth = () => {
 
   // Load user from localStorage on component mount
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // Fetch user data from the backend or use the token to set the user state
-      // This is a simplified example; you might need to adjust based on your backend
-      setUser({ email: "example@example.com", name: "Example User" });
-    }
-    setLoading(false);
+    const validateToken = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+
+        // Add an API call to validate the token and get user data
+        const response = await fetch("/api/validate-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Invalid token");
+        }
+
+        const data = await response.json();
+        setUser(data.user);
+      } catch (error) {
+        setError(error.message);
+        setUser(null);
+        localStorage.removeItem("token");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    validateToken();
   }, []);
 
   return {
@@ -58,6 +88,7 @@ const useAuth = () => {
     logout,
     isAuthenticated,
     loading,
+    error,
   };
 };
 

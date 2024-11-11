@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import AdminHomeNavbar from "../Navbars/AdminHomeNavbar";

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PanchayatNavbar from "../../components/Navbars/PanchayatNavbar";
 
 const PanchayatDashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8081/panchayat_details", {
+    fetch("/panchayat_details", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
