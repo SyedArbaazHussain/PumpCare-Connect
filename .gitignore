@@ -32,3 +32,4 @@ server/.env.vault
 !.env.project
 !.env.vault
 server/.env.vault
+.vercel

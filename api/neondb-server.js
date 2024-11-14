@@ -14,12 +14,13 @@ const app = express();
 // Middleware setup
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production"
-      ? "https://pump-care-connect.vercel.app"
-      : ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://pump-care-connect.vercel.app"
+        : ["http://localhost:3000", "http://127.0.0.1:3000"],
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -41,7 +42,7 @@ async function testDbConnection() {
   }
 }
 
-testDbConnection()
+testDbConnection();
 
 const isAuthenticated = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -60,6 +61,7 @@ const isAuthenticated = async (req, res, next) => {
   }
 };
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 // Authentication Routes
 app.post("/login", async (req, res) => {
@@ -96,7 +98,7 @@ app.post("/login", async (req, res) => {
         email: userWithEmail.admin_email,
         role: "admin",
       },
-      JWT_SECRET
+      process.env.JWT_SECRET
     );
 
     res.json({ message: "Login successful", token: jwtToken });
@@ -157,28 +159,35 @@ app.post("/signupp", async (req, res) => {
 
   try {
     // Validate required fields
-    if (!panchayat_name || !panchayat_loc || !pdo_name || !contact_no || !p_email || !p_password) {
-      return res.status(400).json({ 
+    if (
+      !panchayat_name ||
+      !panchayat_loc ||
+      !pdo_name ||
+      !contact_no ||
+      !p_email ||
+      !p_password
+    ) {
+      return res.status(400).json({
         success: false,
-        error: "Please provide all required fields" 
+        error: "Please provide all required fields",
       });
     }
 
     // Validate phone number
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(contact_no)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        error: "Please enter a valid 10-digit contact number" 
+        error: "Please enter a valid 10-digit contact number",
       });
     }
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(p_email)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        error: "Please enter a valid email address" 
+        error: "Please enter a valid email address",
       });
     }
 
@@ -194,7 +203,8 @@ app.post("/signupp", async (req, res) => {
     if (existingPanchayat.length > 0) {
       return res.status(400).json({
         success: false,
-        error: "Panchayat email or name already exists. Please choose a different one."
+        error:
+          "Panchayat email or name already exists. Please choose a different one.",
       });
     }
 
@@ -217,25 +227,26 @@ app.post("/signupp", async (req, res) => {
       )
     `;
 
-    return res.status(201).json({ 
+    return res.status(201).json({
       success: true,
-      message: "Panchayat signed up successfully" 
+      message: "Panchayat signed up successfully",
     });
-
   } catch (error) {
     console.error("Signup error:", error);
-    
+
     if (error.code === "23505") {
       return res.status(400).json({
         success: false,
-        error: "Panchayat name or email already exists. Please choose a different one."
+        error:
+          "Panchayat name or email already exists. Please choose a different one.",
       });
     }
-    
-    return res.status(500).json({ 
+
+    return res.status(500).json({
       success: false,
       error: "Internal server error",
-      details: process.env.NODE_ENV === "development" ? error.message : undefined
+      details:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 });
@@ -387,7 +398,7 @@ app.post("/loginp", async (req, res) => {
         email: userWithEmail.p_email,
         role: "panchayat",
       },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
@@ -1056,11 +1067,11 @@ app.get("/complaint", isAuthenticated, async (req, res) => {
 });
 
 // Add error handling middleware at the end of all routes
-app.use((err, req, res, next) => {
-  console.error('Global error handler:', err);
-  res.status(500).json({ 
+app.use((err, req, res) => {
+  console.error("Global error handler:", err);
+  res.status(500).json({
     error: "Internal server error",
-    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+    message: process.env.NODE_ENV === "development" ? err.message : undefined,
   });
 });
 
@@ -1073,3 +1084,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export default app;
