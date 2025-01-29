@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\"",
     "dev:frontend": "bunx vite",
-    "dev:backend": "bun api/sqlite-d1-workers-server.js",
+    "dev:backend": "bun api/sqlite-server.js",
     "build": "bunx vite build",
     "vercel-build": "bunx vite build",
     "preview": "bunx vite preview",
