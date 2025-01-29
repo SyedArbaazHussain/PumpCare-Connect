@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import LoginSelect from "./pages/Home/LoginSelect";
@@ -17,15 +16,8 @@ import PanchayatPumpOperatorDetails from "./pages/Panchayat/PanchayatPumpOperato
 import Panchayatvillager from "./pages/Panchayat/PanchayatVillagerDetails";
 import PanchayatComplaints from "./pages/Panchayat/PanchayatComplaints";
 import Admin from "./pages/Admin/Admin";
-import { AuthProvider } from "./components/Auth/AuthContext"; // Import the AuthProvider
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminSignup from "./components/Admin/AdminSignup";
-import AdminAuth from "./components/Admin/AdminAuth";
-import AdminNavbar from "./components/Navbars/AdminNavbar";
-import HomeNavbar from "./components/Navbars/HomeNavbar";
-import PanchayatNavbar from "./components/Navbars/PanchayatNavbar";
-import OperatorNavbar from "./components/Navbars/OperatorNavbar";
-import VillagerNavbar from "./components/Navbars/VillagerNavbar";
 import "./App.css";
 
 const App = () => {
@@ -33,7 +25,7 @@ const App = () => {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="" element={<Home />} />
           <Route path="/notfound" element={<NotFound />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/LoginSelect" element={<LoginSelect />} />

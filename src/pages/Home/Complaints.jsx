@@ -12,7 +12,7 @@ const Complaints = () => {
   };
 
   const handleSearch = async (e) => {
-    e.preventDefault(); // Prevent form submission from refreshing the page
+    e.preventDefault();
     try {
       const response = await api.get(`/fetchNoOfComplaints/${complaintId}`);
 

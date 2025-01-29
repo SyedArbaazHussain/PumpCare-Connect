@@ -33,3 +33,4 @@ server/.env.vault
 !.env.vault
 server/.env.vault
 .vercel
+pcc.sqlite

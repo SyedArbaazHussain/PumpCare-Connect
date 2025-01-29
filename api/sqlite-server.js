@@ -1,21 +1,21 @@
 import express from "express";
 import cors from "cors";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import bodyParser from "body-parser";
 import process from "process";
-import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+const sqlite3 = require("sqlite3").verbose();
+const bcrypt = require("bcryptjs");
 const app = express();
 
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:5173", // Adjust this to match your frontend's URL
+    origin: "http://localhost:5173/",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
@@ -23,6 +23,12 @@ app.use(
 
 app.use(express.json());
 app.use(bodyParser.json());
+
+// Apply base path for all routes
+app.use("/api", (req, res, next) => {
+  console.log(`API request received at: ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // Database connection setup using environment variables
 const dbPromise = open({
@@ -329,7 +335,7 @@ app.post("/signupv", async (req, res) => {
     }
   }
 });
-app.post("/loginp", async (req, res) => {
+app.post("/api/loginp", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {

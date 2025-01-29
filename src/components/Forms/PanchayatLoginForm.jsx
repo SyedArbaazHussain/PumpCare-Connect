@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from '../../services/api';
+import api from "../../services/api";
 import HomeNavbar from "../Navbars/HomeNavbar";
 
 const PanchayatLoginForm = () => {
@@ -22,7 +22,7 @@ const PanchayatLoginForm = () => {
     }
 
     try {
-      const response = await api.post('/loginp', {
+      const response = await api.post("/loginp", {
         email,
         password,
       });
